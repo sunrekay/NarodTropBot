@@ -15,6 +15,8 @@ def insert_new_url(name_website, workaround_url):
         data = json.load(json_file)
         data['couple'].append({'url': name_website,
                                'workaround': workaround_url})
+        while data['couple'].count({'url': name_website, 'workaround': workaround_url}) > 1:
+            data['couple'].remove({'url': name_website, 'workaround': workaround_url})
     with open('data.txt', 'w') as outfile:
         json.dump(data, outfile)
 
