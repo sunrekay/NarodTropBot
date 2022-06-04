@@ -5,7 +5,7 @@ import database
 import time
 import os
 
-os.environ['GH_TOKEN'] = ' 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 '
+os.environ['GH_TOKEN'] = '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'
 options = webdriver.FirefoxOptions()
 options.set_preference("dom.webdriver.enabled", False)
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0")
