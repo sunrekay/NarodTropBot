@@ -1,11 +1,11 @@
 import telebot
-
 from telebot import types
 
-#Передаём ТОКЕН
+
 bot = telebot.TeleBot('5574416924:AAE2BXF5lMpHhF7KsyWQveR0fRBsfq5Q-u4')
 
-@bot.message_handler(commands =['start'])
+
+@bot.message_handler(commands=['start'])
 def start(message):
     # создаем тело клавиатуры
     markup = types.InlineKeyboardMarkup(row_width=1)
@@ -15,11 +15,12 @@ def start(message):
     item2 = types.InlineKeyboardButton("Обо мне", callback_data='contacts')
 
     # Добавление кнопок в тело клавиатуры
-    markup.add(item1,item2)
+    markup.add(item1, item2)
 
     mess = f'Привет, {message.from_user.first_name}!!!\nЯ - Народная тропа и я веду туда, куда тебе захочется :)'
     hi_photo = open('folk.jpg', "rb")
     bot.send_photo(message.chat.id, hi_photo, mess, parse_mode='html', reply_markup=markup)
+
 
 @bot.callback_query_handler(func=lambda call: True) #назначение кнопок
 def callback_inline(call):
@@ -45,10 +46,8 @@ def callback_inline(call):
                     #Тут реализуем вывод списка предыдущих запросов
                 elif call.data == 'back':
                     bot.answer_callback_query(call.id)
-
-
     except Exception as e:
         print(repr(e))
 
-bot.polling(none_stop = True)
 
+bot.polling(none_stop=True)
