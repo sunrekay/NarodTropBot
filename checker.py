@@ -20,7 +20,7 @@ def url_data_check(name_website):
             else:
                 return temp
         else:
-            return "Нет возможности получить доступ к сайту. Проверьте введенные данные."
+            return 0
     except Exception as ex:
         print(ex)
         return "Нет возможности получить доступ к сайту. Проверьте введенные данные."
