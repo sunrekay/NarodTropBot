@@ -1,0 +1,1 @@
+{"couple": [{"url": "vk.com", "workaround": "https://proxysite.cloud/?cdURL=aHR0cHM6Ly92ay5jb20v"}]}

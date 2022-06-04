@@ -1,0 +1,1 @@
+{"users": [{"chat_id": "1234213", "names_website": ["vk.com", "youtube.com", "reddit.com"]}, {"chat_id": "12343", "names_website": ["reddit.com", "reddit.com", "vk.com"]}, {"chat_id": "2343", "names_website": ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}]}
