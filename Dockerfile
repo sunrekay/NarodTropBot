@@ -7,16 +7,14 @@ RUN apt update \
 	&& apt install -y python3 pip \
 	&& cd /usr/bin \
 	&& ln -s python3 python
-# COPY requirements.txt /mnt/data/requirements.txt
-
+COPY requirements.txt /mnt/data/requirements.txt
 
 WORKDIR /mnt/data 
 ADD bot.py /
 # RUN chmod +x /start.sh
 
-
-# RUN pip install -r requirements.txt
-# COPY . /mnt/data/
+RUN pip install -r requirements.txt
+COPY . /mnt/data/
 
 
 
