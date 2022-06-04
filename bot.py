@@ -1,5 +1,7 @@
 import telebot
 from telebot import types
+import database
+import checker
 
 
 bot = telebot.TeleBot('5574416924:AAE2BXF5lMpHhF7KsyWQveR0fRBsfq5Q-u4')
@@ -20,6 +22,20 @@ def start(message):
     mess = f'Привет, {message.from_user.first_name}!!!\nЯ - Народная тропа и я веду туда, куда тебе захочется :)'
     hi_photo = open('folk.jpg', "rb")
     bot.send_photo(message.chat.id, hi_photo, mess, parse_mode='html', reply_markup=markup)
+
+
+@bot.message_handler(commands=['h'])
+def get_history(message):
+    history_list = database.get_user_history(message.chat.id)
+    print(history_list)
+    if history_list:
+        text = "История поиска:\n"
+        history_list.reverse()
+        for i in range(len(history_list)):
+            text += '{}. {}\n'.format(i + 1, history_list[i])
+        bot.send_message(message.chat.id, text)
+    else:
+        bot.send_message(message.chat.id, "Вы пока ничего не искали")
 
 
 @bot.callback_query_handler(func=lambda call: True) #назначение кнопок
@@ -46,8 +62,27 @@ def callback_inline(call):
                     #Тут реализуем вывод списка предыдущих запросов
                 elif call.data == 'back':
                     bot.answer_callback_query(call.id)
+                    history_list = database.get_user_history(call.message.chat.id)
+                    if not history_list:
+                        bot.send_message(call.message.chat.id, "Вы пока ничего не искали")
+                    else:
+                        text = "История поиска:\n"
+                        history_list.reverse()
+                        for i in range(len(history_list)):
+                            text += '{}. {}\n'.format(i+1, history_list[i])
+                        bot.send_message(call.message.chat.id, text)
     except Exception as e:
         print(repr(e))
+
+
+@bot.message_handler(content_types=['text'])
+def get_workaround_website(message):
+    answer = checker.url_data_check(message.text)
+    if answer == 0:
+        bot.send_message(message.chat.id, "Нет возможности получить доступ к сайту. Проверьте введенные данные.")
+    else:
+        database.insert_url_in_user_history(message.chat.id, message.text)
+        bot.send_message(message.chat.id, answer)
 
 
 bot.polling(none_stop=True)
