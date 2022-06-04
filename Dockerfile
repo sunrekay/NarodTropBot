@@ -11,7 +11,6 @@ COPY requirements.txt /mnt/data/requirements.txt
 
 WORKDIR /mnt/data 
 ADD bot.py /
-# RUN chmod +x /start.sh
 
 RUN pip install -r requirements.txt
 COPY . /mnt/data/
