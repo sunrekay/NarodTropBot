@@ -4,7 +4,7 @@ import database
 import checker
 
 
-bot = telebot.TeleBot('5574416924:AAE2BXF5lMpHhF7KsyWQveR0fRBsfq5Q-u4')
+bot = telebot.TeleBot('') # Вставить токен бота
 
 
 @bot.message_handler(commands=['start'])
